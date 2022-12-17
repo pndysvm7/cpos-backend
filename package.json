@@ -1,0 +1,28 @@
+{
+  "name": "cpos-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pndysvm7/cpos-backend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pndysvm7/cpos-backend/issues"
+  },
+  "homepage": "https://github.com/pndysvm7/cpos-backend#readme",
+  "dependencies": {
+    "async": "^3.2.4",
+    "body-parser": "^1.19.1",
+    "cors": "^2.8.5",
+    "csv-parse": "^5.0.4",
+    "csv-parser": "^3.0.0",
+    "express": "^4.17.2",
+    "multer": "^1.4.4"
+  }
+}
