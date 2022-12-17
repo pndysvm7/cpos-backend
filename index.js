@@ -20,18 +20,13 @@ app.options('*', cors())
 const allEqual = async (arr) => arr.every(v => v === arr[0])
 
 const sumDigit = async (num, sum = 0) => {
-
   var resad = 0;
   while (num > 0) {
     let k = num % 10;
     resad += k;
     num = Math.floor(num / 10);
-
   }
-
-
   return resad
-
 }
 
 const maximumDigits = async (num) => {
@@ -458,9 +453,45 @@ const isNewCateg1 = (num) => {
 
 }
 
-
-
-
+const search10DigitPattern = async (result, patternLength, patternObj) => {
+  let prr = []
+  for await (let d of result) {
+    if (!d) {
+      continue
+    }
+    let strNumber = await d.toString();
+    let subStr = "";
+    for await (let digit of strNumber) {
+      let flag = true;
+      if (subStr.length === patternLength) {
+        let newSubStr = await subStr.slice(1);
+        subStr = newSubStr;
+      }
+      subStr += digit;
+      if (subStr.length < patternLength) {
+        continue;
+      }
+      // dumb.push(subStr);
+      for await (let key of Object.keys(patternObj)) {
+        let temp = [];
+        for await (let g of patternObj[key]) {
+          await temp.push(subStr[g]);
+        }
+        if (key === '0' || key === '1' || key === '2' || key === '3' || key === '4' || key === '5' || key === '6' || key === '7' || key === '8' || key === '9') {
+          await temp.push(key);
+        }
+        if (await allEqual(temp) === false) {
+          flag = false;
+          break;
+        }
+      }
+      if (flag === true) {
+        await prr.push(d);
+      }
+    }
+  }
+  return prr
+}
 // routes
 
 // this route will be hit when 1st tab SHOW NEWLY ADDED tab is hit
@@ -848,46 +879,6 @@ app.post('/searchdesign', async (req, res) => {
   // console.log(newArray)
   res.send(newArray)
 })
-
-const search10DigitPattern = async (result, patternLength, patternObj) => {
-  let prr = []
-  for await (let d of result) {
-    if (!d) {
-      continue
-    }
-    let strNumber = await d.toString();
-    let subStr = "";
-    for await (let digit of strNumber) {
-      let flag = true;
-      if (subStr.length === patternLength) {
-        let newSubStr = await subStr.slice(1);
-        subStr = newSubStr;
-      }
-      subStr += digit;
-      if (subStr.length < patternLength) {
-        continue;
-      }
-      // dumb.push(subStr);
-      for await (let key of Object.keys(patternObj)) {
-        let temp = [];
-        for await (let g of patternObj[key]) {
-          await temp.push(subStr[g]);
-        }
-        if (key === '0' || key === '1' || key === '2' || key === '3' || key === '4' || key === '5' || key === '6' || key === '7' || key === '8' || key === '9') {
-          await temp.push(key);
-        }
-        if (await allEqual(temp) === false) {
-          flag = false;
-          break;
-        }
-      }
-      if (flag === true) {
-        await prr.push(d);
-      }
-    }
-  }
-  return prr
-}
 
 app.get('/', (req, res) => {
   res.send('backend sprinted')
