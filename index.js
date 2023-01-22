@@ -499,28 +499,22 @@ const search10DigitPattern = async (result, patternLength, patternObj) => {
 // this route will be hit when 1st tab SHOW NEWLY ADDED tab is hit
 app.post('/hello', upload.array('file'), async (req, res, next) => {
   console.log('i got req')
-  console.log(req.files);
+  console.log(req.files)
   if (req.files === [] || req.files.length < 2) {
-    res.sendStatus(450);
-    return;
+    res.sendStatus(450)
+    return
   }
 
-  let old_data = [];
-  let new_data = [];
+  let old_data = []
+  let new_data = []
 
   try {
-
-    var a = await req.files[0].buffer.toString();
-    var b = await req.files[1].buffer.toString();
-
+    var a = await req.files[0].buffer.toString()
+    var b = await req.files[1].buffer.toString()
+  } catch (e) {
+    res.sendStatus(450)
+    return
   }
-  catch (e) {
-    res.sendStatus(450);
-    return;
-  }
-
-
-
 
   let c = await a.split('\n');
   let c2 = await b.split('\n');
@@ -572,242 +566,265 @@ app.post('/hello', upload.array('file'), async (req, res, next) => {
 })
 
 // this route will be hit when 2nd tab FIND VIPS will be hit
-app.post('/vip', upload.array('file'), async (req, res, next) => {
+// app.post('/vip', upload.array('file'), async (req, res, next) => {
 
-  console.log('i got req')
+//   console.log('i got req')
 
-  console.log(req.files);
+//   console.log(req.files);
 
-  if (req.files === [] || req.files.length < 1) {
-    console.log("file is not uploaded properly please check again", "2nd tab")
-    res.status(406).json({ "message": "file is not uploaded properly please check again, maybe you are uploading file but file is not reaching to the backend so please refresh the page and try to upload the file" })
-    return;
+//   if (req.files === [] || req.files.length < 1) {
+//     console.log("file is not uploaded properly please check again", "2nd tab")
+//     res.status(406).json({ "message": "file is not uploaded properly please check again, maybe you are uploading file but file is not reaching to the backend so please refresh the page and try to upload the file" })
+//     return;
+//   }
+
+//   if (!req.files[0].mimetype.includes('csv')) {
+//     console.log('file is not csv')
+//     res.status(406).json({ "message": "please upload a csv file" })
+//     return;
+//   }
+
+//   let numbers_in_this_file = 0
+//   let file_name = req.files[0].originalname
+
+//   let data = []
+//   try {
+//     var a1 = await req.files[0].buffer.toString();
+//   }
+//   catch (e) {
+//     console.log('file is uploaded in 2nd tab but can not read it please check your file')
+//     res.status(406).json({ "message": "file is uploaded but can not read your numbers", "error": e })
+//     return;
+//   }
+
+//   // c.length will be the number of rows
+//   let c = await a1.split('\n');
+
+
+//   let abxbabab = [];
+//   let mxthree = [];
+//   let mxtwo = [];
+//   let others = [];
+//   let mxfreq7 = [];
+//   let abcd_x_abcd_y = [];
+//   let xy_abba_abba = [];
+//   let abcc_x_abcc_y = [];
+//   let abc_xx_abc_yy = [];
+//   let xy_a0_b0_c0_d0 = [];
+//   let xy_abab_cdcd = [];
+//   let abc_abc_wxyz = [];
+//   let xxxx = [];
+//   let abcd_abcd = [];
+//   let x00x_y00y = [];
+//   let abcd_xyz_xyz = [];
+//   let super_vip = [];
+//   let new_categ1 = [];
+//   let ababdababe = [];
+
+
+//   for await (let d of c) {
+//     let appu = await d.split(',');
+//     if (!appu || !appu.length) {
+//       continue
+//     }
+
+//     for await (let numbers_in_row of appu) {
+//       if (!numbers_in_row) {
+//         continue
+//       }
+//       let num_to_string = numbers_in_row.toString()
+//       if (num_to_string.length === 10) {
+//         numbers_in_this_file += 1
+//         let t = parseInt(num_to_string)
+//         let ans1 = await sumDigit(t);
+//         let ans2 = await maximumDigits(t);
+//         let ans3 = await maximumFreq(t);
+//         let pattern = await findPattern(t);
+
+//         if (ans2 <= 2) {
+//           super_vip.push(t);
+//         }
+//         if (ans2 === 3) {
+//           mxthree.push(t);
+//         }
+
+//         if (ans3 >= 7) {
+//           super_vip.push(t);
+//         }
+//         if (pattern !== null) {
+
+//           if (pattern.abcd_x_abcd_y) {
+//             abcd_x_abcd_y.push(t);
+//           }
+
+//           if (pattern.xy_abba_abba) {
+//             xy_abba_abba.push(t);
+//           }
+
+//           if (pattern.abcc_x_abcc_y) {
+//             abcc_x_abcc_y.push(t);
+//           }
+
+//           if (pattern.abc_xx_abc__yy) {
+//             abc_xx_abc_yy.push(t);
+//           }
+
+//           if (pattern.abcdcdcxcd || pattern.abcdabcdxy || pattern.abcdcdxdcd || pattern.abcdxdcdcd) {
+//             abxbabab.push(t)
+//           }
+
+//           if (pattern.abeabxydxy || pattern.abxxxyxxxy || pattern.abcdcdabcd || pattern.is971) {
+//             others.push(t)
+//           }
+
+
+
+
+
+
+//           // if (pattern.xy_a0_b0_c0_d0) {
+//           //     xy_a0_b0_c0_d0.push(t);
+//           // }
+
+//           if (pattern.xy_abab_cdcd) {
+//             xy_abab_cdcd.push(t);
+//           }
+
+//           if (pattern.abc_abc_wxyz) {
+//             abc_abc_wxyz.push(t);
+//           }
+
+//           if (pattern.xxx_z_xxx) {
+//             super_vip.push(t);
+//           }
+
+//           if (pattern.xy00_xb00 || pattern.xy00_xa00 || pattern.xxx_z_xxx || pattern.ab_xy_xy_ab_ab || pattern.ab_xy_ab_xy_xy || pattern.ab_zxxx_zaaa || pattern.xy00_xy00 || pattern.xyxy_yxyx || pattern.xxxxyxx || pattern.x00y_x00y || pattern.ab_xxx_cd_xxx || isPalindrome(t) || pattern.ab_xyxz_xyxz || pattern.ab_xyxy_xzxz || pattern.ababdababe || pattern.abxy0000xy || pattern.abc000bcbc || pattern.aabbcccxcx || pattern.aabbaaxyxy || pattern.abcd1abcd2 || pattern.abxy00xyxy) {
+//             super_vip.push(t);
+//           }
+
+//           if (pattern.xxxx) {
+//             xxxx.push(t);
+//           }
+
+//           if (pattern.abcd_abcd) {
+//             abcd_abcd.push(t);
+//           }
+
+//           if (pattern.x00x_y00y) {
+//             x00x_y00y.push(t);
+//           }
+
+//           if (pattern.abcd_xyz_xyz) {
+//             abcd_xyz_xyz.push(t);
+//           }
+
+
+//           if (isNewCateg1(t) === true || pattern.axyxyacdcd) {
+//             new_categ1.push(t)
+//           }
+
+//           if (pattern.ababdababe) {
+//             ababdababe.push(t);
+//           }
+//         }
+//       }
+//     }
+//   }
+
+//   await super_vip.sort();
+//   await super_vip.reverse()
+
+//   await xxxx.sort();
+//   await xxxx.reverse()
+
+//   await x00x_y00y.sort();
+//   await x00x_y00y.reverse();
+
+//   await abcd_abcd.sort();
+//   await abcd_abcd.reverse();
+
+//   await abxbabab.sort();
+//   await abxbabab.reverse();
+
+//   await mxthree.sort();
+//   await mxthree.reverse();
+
+//   await others.sort();
+//   await others.reverse();
+
+//   await abcd_x_abcd_y.sort();
+//   await abcd_x_abcd_y.reverse();
+
+//   await xy_abba_abba.sort();
+//   await xy_abba_abba.reverse();
+
+//   await abcc_x_abcc_y.sort();
+//   await abcc_x_abcc_y.reverse();
+
+//   await abc_xx_abc_yy.sort();
+//   await abc_xx_abc_yy.reverse();
+
+//   await xy_a0_b0_c0_d0.sort();
+//   await xy_a0_b0_c0_d0.reverse();
+
+//   await xy_abab_cdcd.sort();
+//   await xy_abab_cdcd.reverse();
+
+//   await abc_abc_wxyz.sort();
+//   await abc_abc_wxyz.reverse();
+
+//   await abcd_xyz_xyz.sort();
+//   await abcd_xyz_xyz.reverse();
+
+//   await new_categ1.sort();
+//   await new_categ1.reverse();
+
+//   data.push(super_vip);
+//   data.push(xxxx);
+//   data.push(x00x_y00y);
+//   data.push(abcd_abcd);
+//   data.push(abxbabab);
+//   data.push(mxthree);
+//   data.push(others);
+//   data.push(abcd_x_abcd_y);
+//   data.push(xy_abba_abba);
+//   data.push(abcc_x_abcc_y);
+//   data.push(abc_xx_abc_yy);
+//   data.push(xy_a0_b0_c0_d0);
+//   data.push(xy_abab_cdcd);
+//   data.push(abc_abc_wxyz);
+//   data.push(abcd_xyz_xyz);
+//   data.push(new_categ1);
+
+//   let viptable = {
+//     file_name,
+//     numbers_in_this_file,
+//     data
+//   }
+//   res.send(viptable);
+// })
+
+// new vip route with chunk data
+const vipChunkData = []
+app.post('/vipChunk', upload.array('chunk'), async (req, res) => {
+  vipChunkData.push(req.body)
+  const { headers } = req.body
+  console.log('wwewewewe', headers)
+  console.log('hgsdbhsd', headers['X-Last-Chunk'])
+  const isLastChunk = (headers['X-Last-Chunk'] === true)
+  console.log('is this last chunk', isLastChunk)
+
+  if (isLastChunk) {
+    let bufferData = Buffer.concat(vipChunkData)
+    let data = bufferData.toString()
+    vipChunkData = []
+    console.log(data)
+    console.log('sending now response')
+    res.send({message: 'processing completed', data: data})
+  } else {
+    console.log('more chunks coming in')
+    res.send({message: 'Expecting More Chunks'})
   }
-
-  if (!req.files[0].mimetype.includes('csv')) {
-    console.log('file is not csv')
-    res.status(406).json({ "message": "please upload a csv file" })
-    return;
-  }
-
-  let numbers_in_this_file = 0
-  let file_name = req.files[0].originalname
-
-  let data = []
-  try {
-    var a1 = await req.files[0].buffer.toString();
-  }
-  catch (e) {
-    console.log('file is uploaded in 2nd tab but can not read it please check your file')
-    res.status(406).json({ "message": "file is uploaded but can not read your numbers", "error": e })
-    return;
-  }
-
-  // c.length will be the number of rows
-  let c = await a1.split('\n');
-
-
-  let abxbabab = [];
-  let mxthree = [];
-  let mxtwo = [];
-  let others = [];
-  let mxfreq7 = [];
-  let abcd_x_abcd_y = [];
-  let xy_abba_abba = [];
-  let abcc_x_abcc_y = [];
-  let abc_xx_abc_yy = [];
-  let xy_a0_b0_c0_d0 = [];
-  let xy_abab_cdcd = [];
-  let abc_abc_wxyz = [];
-  let xxxx = [];
-  let abcd_abcd = [];
-  let x00x_y00y = [];
-  let abcd_xyz_xyz = [];
-  let super_vip = [];
-  let new_categ1 = [];
-  let ababdababe = [];
-
-
-  for await (let d of c) {
-    let appu = await d.split(',');
-    if (!appu || !appu.length) {
-      continue
-    }
-
-    for await (let numbers_in_row of appu) {
-      if (!numbers_in_row) {
-        continue
-      }
-      let num_to_string = numbers_in_row.toString()
-      if (num_to_string.length === 10) {
-        numbers_in_this_file += 1
-        let t = parseInt(num_to_string)
-        let ans1 = await sumDigit(t);
-        let ans2 = await maximumDigits(t);
-        let ans3 = await maximumFreq(t);
-        let pattern = await findPattern(t);
-
-        if (ans2 <= 2) {
-          super_vip.push(t);
-        }
-        if (ans2 === 3) {
-          mxthree.push(t);
-        }
-
-        if (ans3 >= 7) {
-          super_vip.push(t);
-        }
-        if (pattern !== null) {
-
-          if (pattern.abcd_x_abcd_y) {
-            abcd_x_abcd_y.push(t);
-          }
-
-          if (pattern.xy_abba_abba) {
-            xy_abba_abba.push(t);
-          }
-
-          if (pattern.abcc_x_abcc_y) {
-            abcc_x_abcc_y.push(t);
-          }
-
-          if (pattern.abc_xx_abc__yy) {
-            abc_xx_abc_yy.push(t);
-          }
-
-          if (pattern.abcdcdcxcd || pattern.abcdabcdxy || pattern.abcdcdxdcd || pattern.abcdxdcdcd) {
-            abxbabab.push(t)
-          }
-
-          if (pattern.abeabxydxy || pattern.abxxxyxxxy || pattern.abcdcdabcd || pattern.is971) {
-            others.push(t)
-          }
-
-
-
-
-
-
-          // if (pattern.xy_a0_b0_c0_d0) {
-          //     xy_a0_b0_c0_d0.push(t);
-          // }
-
-          if (pattern.xy_abab_cdcd) {
-            xy_abab_cdcd.push(t);
-          }
-
-          if (pattern.abc_abc_wxyz) {
-            abc_abc_wxyz.push(t);
-          }
-
-          if (pattern.xxx_z_xxx) {
-            super_vip.push(t);
-          }
-
-          if (pattern.xy00_xb00 || pattern.xy00_xa00 || pattern.xxx_z_xxx || pattern.ab_xy_xy_ab_ab || pattern.ab_xy_ab_xy_xy || pattern.ab_zxxx_zaaa || pattern.xy00_xy00 || pattern.xyxy_yxyx || pattern.xxxxyxx || pattern.x00y_x00y || pattern.ab_xxx_cd_xxx || isPalindrome(t) || pattern.ab_xyxz_xyxz || pattern.ab_xyxy_xzxz || pattern.ababdababe || pattern.abxy0000xy || pattern.abc000bcbc || pattern.aabbcccxcx || pattern.aabbaaxyxy || pattern.abcd1abcd2 || pattern.abxy00xyxy) {
-            super_vip.push(t);
-          }
-
-          if (pattern.xxxx) {
-            xxxx.push(t);
-          }
-
-          if (pattern.abcd_abcd) {
-            abcd_abcd.push(t);
-          }
-
-          if (pattern.x00x_y00y) {
-            x00x_y00y.push(t);
-          }
-
-          if (pattern.abcd_xyz_xyz) {
-            abcd_xyz_xyz.push(t);
-          }
-
-
-          if (isNewCateg1(t) === true || pattern.axyxyacdcd) {
-            new_categ1.push(t)
-          }
-
-          if (pattern.ababdababe) {
-            ababdababe.push(t);
-          }
-        }
-      }
-    }
-  }
-
-  await super_vip.sort();
-  await super_vip.reverse()
-
-  await xxxx.sort();
-  await xxxx.reverse()
-
-  await x00x_y00y.sort();
-  await x00x_y00y.reverse();
-
-  await abcd_abcd.sort();
-  await abcd_abcd.reverse();
-
-  await abxbabab.sort();
-  await abxbabab.reverse();
-
-  await mxthree.sort();
-  await mxthree.reverse();
-
-  await others.sort();
-  await others.reverse();
-
-  await abcd_x_abcd_y.sort();
-  await abcd_x_abcd_y.reverse();
-
-  await xy_abba_abba.sort();
-  await xy_abba_abba.reverse();
-
-  await abcc_x_abcc_y.sort();
-  await abcc_x_abcc_y.reverse();
-
-  await abc_xx_abc_yy.sort();
-  await abc_xx_abc_yy.reverse();
-
-  await xy_a0_b0_c0_d0.sort();
-  await xy_a0_b0_c0_d0.reverse();
-
-  await xy_abab_cdcd.sort();
-  await xy_abab_cdcd.reverse();
-
-  await abc_abc_wxyz.sort();
-  await abc_abc_wxyz.reverse();
-
-  await abcd_xyz_xyz.sort();
-  await abcd_xyz_xyz.reverse();
-
-  await new_categ1.sort();
-  await new_categ1.reverse();
-
-  data.push(super_vip);
-  data.push(xxxx);
-  data.push(x00x_y00y);
-  data.push(abcd_abcd);
-  data.push(abxbabab);
-  data.push(mxthree);
-  data.push(others);
-  data.push(abcd_x_abcd_y);
-  data.push(xy_abba_abba);
-  data.push(abcc_x_abcc_y);
-  data.push(abc_xx_abc_yy);
-  data.push(xy_a0_b0_c0_d0);
-  data.push(xy_abab_cdcd);
-  data.push(abc_abc_wxyz);
-  data.push(abcd_xyz_xyz);
-  data.push(new_categ1);
-
-  let viptable = {
-    file_name,
-    numbers_in_this_file,
-    data
-  }
-  res.send(viptable);
 })
 
 //THIS ROUTE WILL BE HIT WHEN 3RD TAB SEARCH SUPER PATTERN FILE WILL UPLOAD SUBMIT BUTTON IS PRESSED
